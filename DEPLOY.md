@@ -12,14 +12,17 @@ Use this setup:
 2. Create a new project.
 3. Open Project Settings.
 4. Open Database.
-5. Copy the connection string.
-6. Use the pooled/transaction connection string if Supabase recommends it.
+5. Click **Connect**.
+6. Copy the **Connection pooler** string, not the direct connection string.
+7. Use **Shared Pooler / Session mode** on port `5432`.
 
-It will look like:
+It will look like this:
 
 ```text
-postgresql://postgres:YOUR_PASSWORD@db.YOUR_PROJECT.supabase.co:5432/postgres
+postgresql://postgres.YOUR_PROJECT_ID:YOUR_PASSWORD@aws-0-REGION.pooler.supabase.com:5432/postgres
 ```
+
+Do not use the direct URL like `db.YOUR_PROJECT.supabase.co:5432` on Render Free. Supabase direct connections are IPv6 on free projects, and Render may fail with `ENETUNREACH`.
 
 ## 2. Push project to GitHub
 
