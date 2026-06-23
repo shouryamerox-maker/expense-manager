@@ -145,7 +145,6 @@
         <section id="transactions" class="view-section glass-card" hidden>
           <div class="section-heading">
             <div><h2>Transactions</h2><span>Search, filter, sort, edit, delete</span></div>
-            <button id="bulkDeleteBtn" class="danger-button" type="button">Bulk delete</button>
           </div>
           <form id="expenseForm" class="expense-form">
             <label for="expenseAmount"><span>Amount</span><input id="expenseAmount" type="number" min="1" step="0.01" placeholder="120" required /></label>
@@ -163,7 +162,7 @@
           </div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th><input id="selectAllRows" type="checkbox" aria-label="Select all transactions" /></th><th>Date</th><th>Category</th><th>Amount</th><th>Note</th><th>Payment</th><th>Actions</th></tr></thead>
+              <thead><tr><th>Date</th><th>Category</th><th>Amount</th><th>Note</th><th>Payment</th><th>Actions</th></tr></thead>
               <tbody id="transactionTable"></tbody>
             </table>
           </div>

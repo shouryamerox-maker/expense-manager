@@ -39,7 +39,6 @@ let state = normalizeState(loadState());
 let currentEmail = sessionStorage.getItem(SESSION_EMAIL_KEY) || "";
 let currentView = "dashboard";
 let currentPage = 1;
-let selectedRows = new Set();
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -84,8 +83,6 @@ const el = {
   transactionSearch: $("#transactionSearch"),
   transactionFilter: $("#transactionFilter"),
   transactionSort: $("#transactionSort"),
-  selectAllRows: $("#selectAllRows"),
-  bulkDeleteBtn: $("#bulkDeleteBtn"),
   prevPageBtn: $("#prevPageBtn"),
   nextPageBtn: $("#nextPageBtn"),
   pageInfo: $("#pageInfo"),
@@ -275,19 +272,6 @@ el.prevPageBtn.addEventListener("click", () => {
 el.nextPageBtn.addEventListener("click", () => {
   currentPage += 1;
   renderTransactions();
-});
-el.selectAllRows.addEventListener("change", () => {
-  filteredExpenses().forEach((expense) => {
-    if (el.selectAllRows.checked) selectedRows.add(expense.id);
-    else selectedRows.delete(expense.id);
-  });
-  renderTransactions();
-});
-el.bulkDeleteBtn.addEventListener("click", () => {
-  if (!selectedRows.size) return toast("Select transactions first", "warning");
-  state.expenses = state.expenses.filter((expense) => !selectedRows.has(expense.id));
-  selectedRows.clear();
-  saveAndRender("Selected transactions deleted", "danger");
 });
 el.transactionTable.addEventListener("click", handleTransactionAction);
 
@@ -525,7 +509,6 @@ function renderTransactions() {
     .map(
       (expense) => `
         <tr>
-          <td><input type="checkbox" data-row-check="${expense.id}" ${selectedRows.has(expense.id) ? "checked" : ""} aria-label="Select transaction"></td>
           <td>${formatDate(expense.date)}<br><small>${formatTime(expense.time)}</small></td>
           <td>${escapeHtml(expense.category)}</td>
           <td>${money(expense.amount)}</td>
@@ -677,14 +660,8 @@ function renderHeatmap() {
 }
 
 function handleTransactionAction(event) {
-  const check = event.target.closest("[data-row-check]");
   const deleteButton = event.target.closest("[data-delete-expense]");
   const editButton = event.target.closest("[data-edit-expense]");
-  if (check) {
-    if (check.checked) selectedRows.add(check.dataset.rowCheck);
-    else selectedRows.delete(check.dataset.rowCheck);
-    return;
-  }
   if (deleteButton) {
     state.expenses = state.expenses.filter((expense) => expense.id !== deleteButton.dataset.deleteExpense);
     saveAndRender("Transaction deleted", "danger");
