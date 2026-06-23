@@ -179,8 +179,19 @@ async function handleApi(req, res, url) {
 }
 
 function serveStatic(res, pathname) {
+  const hasBuiltClient = fs.existsSync(path.join(DIST_DIR, "index.html"));
+  if (!hasBuiltClient) {
+    sendHtml(
+      res,
+      503,
+      "Build missing",
+      "The React client has not been built yet. Run npm run build, then restart the server."
+    );
+    return;
+  }
+
   const cleanPath = pathname === "/" ? "/index.html" : pathname;
-  const staticRoot = fs.existsSync(path.join(DIST_DIR, "index.html")) ? DIST_DIR : ROOT;
+  const staticRoot = DIST_DIR;
   const fullPath = path.join(staticRoot, cleanPath);
 
   if (!fullPath.startsWith(staticRoot) || !fs.existsSync(fullPath) || fs.statSync(fullPath).isDirectory()) {
@@ -191,6 +202,11 @@ function serveStatic(res, pathname) {
   const ext = path.extname(fullPath);
   res.writeHead(200, { "Content-Type": mimeTypes[ext] || "application/octet-stream" });
   fs.createReadStream(fullPath).pipe(res);
+}
+
+function sendHtml(res, status, title, message) {
+  res.writeHead(status, { "Content-Type": "text/html; charset=utf-8" });
+  res.end(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escapeHtml(title)}</title><style>body{margin:0;font-family:Arial,sans-serif;background:#0f172a;color:#f8fafc;display:grid;min-height:100vh;place-items:center;padding:24px}main{max-width:520px;background:#1e293b;border:1px solid rgba(148,163,184,.2);border-radius:18px;padding:24px;box-shadow:0 24px 80px rgba(2,6,23,.38)}p{color:#94a3b8;line-height:1.6}</style></head><body><main><h1>${escapeHtml(title)}</h1><p>${escapeHtml(message)}</p></main></body></html>`);
 }
 
 function readJson(req) {
