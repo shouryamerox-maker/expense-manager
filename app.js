@@ -1197,13 +1197,9 @@ function drawIncomeExpense(canvas) {
 
 function setupCanvas(canvas) {
   const rect = canvas.getBoundingClientRect();
-  const scale = window.devicePixelRatio || 1;
-  canvas.width = Math.max(240, rect.width) * scale;
-  canvas.height = Number(canvas.getAttribute("height")) * scale;
+  canvas.width = Math.max(240, Math.floor(rect.width));
+  canvas.height = Math.max(120, Math.floor(rect.height || Number(canvas.getAttribute("height"))));
   const ctx = canvas.getContext("2d");
-  ctx.scale(scale, scale);
-  canvas.width = canvas.width / scale;
-  canvas.height = Number(canvas.getAttribute("height"));
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   return ctx;
 }

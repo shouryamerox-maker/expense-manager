@@ -684,12 +684,12 @@ body[data-theme="light"] .achievement-card {
   .sidebar {
     bottom: 0;
     left: 0;
-    max-width: 320px;
+    max-width: 292px;
     position: fixed;
     top: 0;
     transform: translateX(-105%);
     transition: transform 220ms ease;
-    width: min(86vw, 320px);
+    width: min(84vw, 292px);
     z-index: 30;
   }
 
@@ -705,10 +705,28 @@ body[data-theme="light"] .achievement-card {
   }
 
   .workspace {
-    padding: 16px;
+    padding: 12px;
   }
 
-  .topbar,
+  .topbar {
+    align-items: start;
+    gap: 10px;
+    grid-template-columns: auto 1fr;
+    margin-bottom: 12px;
+  }
+
+  .topbar .month-picker {
+    grid-column: 1 / -1;
+  }
+
+  .topbar h1 {
+    font-size: 1.65rem;
+  }
+
+  .topbar .eyebrow {
+    font-size: 0.64rem;
+  }
+
   .quick-command,
   .table-toolbar,
   .assistant-box {
@@ -724,12 +742,148 @@ body[data-theme="light"] .achievement-card {
     min-width: 0;
   }
 
-  .kpi-grid,
-  .analytics-grid,
+  button,
+  .file-button {
+    border-radius: 10px;
+    font-size: 0.88rem;
+    min-height: 38px;
+    padding: 0 12px;
+  }
+
+  input,
+  select,
+  textarea {
+    border-radius: 10px;
+    font-size: 0.92rem;
+    min-height: 40px;
+  }
+
+  .glass-card,
+  .chart-card {
+    border-radius: 14px;
+    padding: 12px;
+  }
+
+  .quick-command {
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .kpi-grid {
+    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-bottom: 12px;
+  }
+
+  .kpi-card {
+    gap: 7px;
+    min-height: 124px;
+    padding: 12px;
+  }
+
+  .kpi-card strong {
+    font-size: 1.18rem;
+  }
+
+  .kpi-card small {
+    font-size: 0.76rem;
+  }
+
+  .kpi-icon {
+    padding: 6px;
+  }
+
+  .trend {
+    font-size: 0.66rem;
+    padding: 4px 6px;
+  }
+
+  .sparkline {
+    height: 24px;
+  }
+
+  .analytics-grid {
+    display: flex;
+    gap: 10px;
+    margin: 0 -12px;
+    overflow-x: auto;
+    padding: 0 12px 12px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .analytics-grid .chart-card {
+    flex: 0 0 min(86vw, 360px);
+    scroll-snap-align: start;
+  }
+
+  .chart-card canvas {
+    height: 132px;
+  }
+
+  .chart-card .section-heading {
+    margin-bottom: 10px;
+  }
+
+  .heatmap {
+    gap: 4px;
+    grid-template-columns: repeat(7, 34px);
+    overflow-x: auto;
+  }
+
+  .heat-cell {
+    font-size: 0.7rem;
+    min-height: 34px;
+    padding: 5px;
+  }
+
   .insight-grid,
-  .expense-form,
   .simple-grid {
     grid-template-columns: 1fr;
+  }
+
+  .expense-form {
+    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .expense-form label:nth-child(3),
+  .expense-form button {
+    grid-column: 1 / -1;
+  }
+
+  .section-heading {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .section-heading h2 {
+    font-size: 0.98rem;
+  }
+
+  .section-heading span {
+    font-size: 0.78rem;
+  }
+
+  .table-toolbar {
+    gap: 8px;
+  }
+
+  table {
+    font-size: 0.84rem;
+    min-width: 620px;
+  }
+
+  th,
+  td {
+    padding: 9px 8px;
+  }
+
+  .record-card,
+  .progress-card,
+  .insight-card,
+  .achievement-card {
+    border-radius: 12px;
+    padding: 11px;
   }
 
   .calendar-grid,
