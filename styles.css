@@ -1050,6 +1050,25 @@ body[data-theme="light"] .achievement-card {
     grid-template-columns: 1fr;
   }
 
+  #transactions.glass-card {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  #transactions > .section-heading,
+  #transactions > .expense-form,
+  #transactions > .table-toolbar,
+  #transactions > .pagination {
+    backdrop-filter: blur(18px);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)), var(--glass);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 16px 44px rgba(2, 6, 23, 0.22);
+    padding: 12px;
+  }
+
   .expense-form label:nth-child(3),
   .expense-form button {
     grid-column: auto;
@@ -1077,27 +1096,38 @@ body[data-theme="light"] .achievement-card {
 
   tbody {
     display: grid;
-    gap: 10px;
+    gap: 8px;
   }
 
   tr {
-    background: rgba(15, 23, 42, 0.26);
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
+      rgba(15, 23, 42, 0.42);
     border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 10px;
+    border-radius: 13px;
+    box-shadow: 0 12px 34px rgba(2, 6, 23, 0.18);
+    display: grid;
+    gap: 7px 10px;
+    grid-template-areas:
+      "note amount"
+      "date category"
+      "payment payment"
+      "actions actions";
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 12px;
   }
 
   body[data-theme="light"] tr {
-    background: rgba(255, 255, 255, 0.58);
+    background: rgba(255, 255, 255, 0.76);
   }
 
   td {
-    align-items: start;
+    align-items: center;
     border-bottom: 0;
-    display: grid;
-    gap: 8px;
-    grid-template-columns: minmax(84px, 34%) minmax(0, 1fr);
-    padding: 8px 0;
+    display: flex;
+    gap: 6px;
+    min-width: 0;
+    padding: 0;
     word-break: break-word;
   }
 
@@ -1109,13 +1139,78 @@ body[data-theme="light"] .achievement-card {
     text-transform: uppercase;
   }
 
+  td[data-label="Date"] {
+    grid-area: date;
+  }
+
+  td[data-label="Category"] {
+    grid-area: category;
+    justify-self: end;
+    max-width: 100%;
+  }
+
+  td[data-label="Payment"] {
+    grid-area: payment;
+  }
+
+  td[data-label="Note"] {
+    color: var(--text);
+    font-size: 0.96rem;
+    font-weight: 850;
+    grid-area: note;
+    line-height: 1.25;
+    min-width: 0;
+  }
+
+  td[data-label="Note"]::before {
+    display: none;
+  }
+
   td[data-label="Amount"] {
     color: var(--primary);
+    font-size: 1rem;
     font-weight: 900;
+    grid-area: amount;
+    justify-self: end;
+    white-space: nowrap;
+  }
+
+  td[data-label="Amount"]::before {
+    display: none;
+  }
+
+  td[data-label="Date"],
+  td[data-label="Category"],
+  td[data-label="Payment"] {
+    background: rgba(148, 163, 184, 0.11);
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.76rem;
+    line-height: 1.2;
+    max-width: 100%;
+    padding: 6px 8px;
+  }
+
+  td[data-label="Date"]::before,
+  td[data-label="Category"]::before,
+  td[data-label="Payment"]::before {
+    display: none;
+  }
+
+  td[data-label="Category"] {
+    color: var(--primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   td[data-label="Actions"] {
+    display: grid;
+    gap: 8px;
+    grid-area: actions;
     grid-template-columns: 1fr;
+    margin-top: 4px;
   }
 
   td[data-label="Actions"]::before {
@@ -1129,6 +1224,7 @@ body[data-theme="light"] .achievement-card {
   .pagination {
     display: grid;
     grid-template-columns: 1fr;
+    margin-top: 10px;
   }
 
   .pagination button {
@@ -1191,6 +1287,13 @@ body[data-theme="light"] .achievement-card {
     padding: 10px;
   }
 
+  #transactions > .section-heading,
+  #transactions > .expense-form,
+  #transactions > .table-toolbar,
+  #transactions > .pagination {
+    padding: 10px;
+  }
+
   .kpi-card strong {
     font-size: 1.3rem;
   }
@@ -1245,6 +1348,21 @@ body[data-theme="light"] .achievement-card {
   .backup-toolbar .file-button {
     flex-basis: 100%;
     width: 100%;
+  }
+
+  tr {
+    border-radius: 12px;
+    grid-template-areas:
+      "note amount"
+      "date date"
+      "category category"
+      "payment payment"
+      "actions actions";
+    padding: 11px;
+  }
+
+  td[data-label="Category"] {
+    justify-self: stretch;
   }
 }
 
